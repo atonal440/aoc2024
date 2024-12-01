@@ -1,8 +1,8 @@
 module Main where
-
-import Lib ( both )
 import System.Environment ( getArgs )
-import Data.List qualified as List
+import qualified Data.List as List
+import Lib ( both )
+
 
 main :: IO ()
 main = do
@@ -14,13 +14,13 @@ main = do
   print $ sum diffs
 
 difference :: Int -> Int -> Int
-difference a b = abs (a - b)
+difference a b = abs(a - b)
 
 parseInput :: String -> ([Int], [Int])
-parseInput = unzip . fmap parsePair . lines
+parseInput = unzip . fmap parseNumbers . lines
 
-parsePair :: String -> (Int, Int)
-parsePair = entuple . fmap read . words
+parseNumbers :: String -> (Int, Int)
+parseNumbers  = entuple . fmap read . words
   where
-  entuple [a, b] = (a, b)
-  entuple _ = error "tried to entuple a non-pair list"
+    entuple [a, b] = (a, b)
+    entuple _ = error "not a pair"
