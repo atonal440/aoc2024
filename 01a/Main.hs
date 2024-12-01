@@ -1,8 +1,8 @@
 module Main where
 
+import Lib ( both )
 import System.Environment ( getArgs )
 import Data.List qualified as List
-import Lib
 
 main :: IO ()
 main = do
