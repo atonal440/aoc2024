@@ -1,0 +1,200 @@
+cabal-version:      3.4
+name:               2024aoc
+version:            0.1.0.0
+license:            NONE
+build-type:         Simple
+
+common stuff
+    ghc-options:        -Wall
+    default-language:   GHC2024
+    default-extensions: RecordWildCards
+    build-depends:      base ^>=4.20.0.0
+
+library
+    import:           stuff
+    hs-source-dirs:   lib
+    exposed-modules:  Lib
+    -- build-depends:
+
+test-suite 2024aoc-test
+    import:           stuff
+    type:             exitcode-stdio-1.0
+    hs-source-dirs:   test
+    main-is:          Main.hs
+    build-depends:
+        2024aoc
+
+executable 2024aoc01
+    import:           stuff
+    hs-source-dirs:   01
+    main-is:          Main.hs
+    build-depends:
+        2024aoc
+
+executable 2024aoc02
+    import:           stuff
+    hs-source-dirs:   02
+    main-is:          Main.hs
+    build-depends:
+        2024aoc
+
+executable 2024aoc03
+    import:           stuff
+    hs-source-dirs:   03
+    main-is:          Main.hs
+    build-depends:
+        2024aoc
+
+executable 2024aoc04
+    import:           stuff
+    hs-source-dirs:   04
+    main-is:          Main.hs
+    build-depends:
+        2024aoc
+
+executable 2024aoc05
+    import:           stuff
+    hs-source-dirs:   05
+    main-is:          Main.hs
+    build-depends:
+        2024aoc
+
+executable 2024aoc06
+    import:           stuff
+    hs-source-dirs:   06
+    main-is:          Main.hs
+    build-depends:
+        2024aoc
+
+executable 2024aoc07
+    import:           stuff
+    hs-source-dirs:   07
+    main-is:          Main.hs
+    build-depends:
+        2024aoc
+
+executable 2024aoc08
+    import:           stuff
+    hs-source-dirs:   08
+    main-is:          Main.hs
+    build-depends:
+        2024aoc
+
+executable 2024aoc09
+    import:           stuff
+    hs-source-dirs:   09
+    main-is:          Main.hs
+    build-depends:
+        2024aoc
+
+executable 2024aoc10
+    import:           stuff
+    hs-source-dirs:   10
+    main-is:          Main.hs
+    build-depends:
+        2024aoc
+
+executable 2024aoc11
+    import:           stuff
+    hs-source-dirs:   11
+    main-is:          Main.hs
+    build-depends:
+        2024aoc
+
+executable 2024aoc12
+    import:           stuff
+    hs-source-dirs:   12
+    main-is:          Main.hs
+    build-depends:
+        2024aoc
+
+executable 2024aoc13
+    import:           stuff
+    hs-source-dirs:   13
+    main-is:          Main.hs
+    build-depends:
+        2024aoc
+
+executable 2024aoc14
+    import:           stuff
+    hs-source-dirs:   14
+    main-is:          Main.hs
+    build-depends:
+        2024aoc
+
+executable 2024aoc15
+    import:           stuff
+    hs-source-dirs:   15
+    main-is:          Main.hs
+    build-depends:
+        2024aoc
+
+executable 2024aoc16
+    import:           stuff
+    hs-source-dirs:   16
+    main-is:          Main.hs
+    build-depends:
+        2024aoc
+
+executable 2024aoc17
+    import:           stuff
+    hs-source-dirs:   17
+    main-is:          Main.hs
+    build-depends:
+        2024aoc
+
+executable 2024aoc18
+    import:           stuff
+    hs-source-dirs:   18
+    main-is:          Main.hs
+    build-depends:
+        2024aoc
+
+executable 2024aoc19
+    import:           stuff
+    hs-source-dirs:   19
+    main-is:          Main.hs
+    build-depends:
+        2024aoc
+
+executable 2024aoc20
+    import:           stuff
+    hs-source-dirs:   20
+    main-is:          Main.hs
+    build-depends:
+        2024aoc
+
+executable 2024aoc21
+    import:           stuff
+    hs-source-dirs:   21
+    main-is:          Main.hs
+    build-depends:
+        2024aoc
+
+executable 2024aoc22
+    import:           stuff
+    hs-source-dirs:   22
+    main-is:          Main.hs
+    build-depends:
+        2024aoc
+
+executable 2024aoc23
+    import:           stuff
+    hs-source-dirs:   23
+    main-is:          Main.hs
+    build-depends:
+        2024aoc
+
+executable 2024aoc24
+    import:           stuff
+    hs-source-dirs:   24
+    main-is:          Main.hs
+    build-depends:
+        2024aoc
+
+executable 2024aoc25
+    import:           stuff
+    hs-source-dirs:   25
+    main-is:          Main.hs
+    build-depends:
+        2024aoc
