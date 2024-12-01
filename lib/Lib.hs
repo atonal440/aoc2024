@@ -1,4 +1,6 @@
-module Lib (someFunc) where
+module Lib where
 
-someFunc :: IO ()
-someFunc = putStrLn "someFunc"
+import Data.Bifunctor
+
+both :: Bifunctor f => (a -> b) -> f a a -> f b b
+both f = bimap f f
