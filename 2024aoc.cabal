@@ -8,7 +8,9 @@ common stuff
     ghc-options:        -Wall
     default-language:   GHC2024
     default-extensions: RecordWildCards
-    build-depends:      base ^>=4.20.0.0
+    build-depends:
+        base ^>=4.20.0.0,
+        containers
 
 library
     import:           stuff
