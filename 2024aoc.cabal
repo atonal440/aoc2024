@@ -39,3 +39,15 @@ executable 2024aoc01b
     main-is:          Main.hs
     build-depends:
         2024aoc
+executable 2024aoc02a
+    import:           stuff
+    hs-source-dirs:   02a
+    main-is:          Main.hs
+    build-depends:
+        2024aoc
+executable 2024aoc02b
+    import:           stuff
+    hs-source-dirs:   02b
+    main-is:          Main.hs
+    build-depends:
+        2024aoc
