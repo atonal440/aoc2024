@@ -1,55 +1,24 @@
 cabal-version:      3.4
-name:               2024aoc
+name:               aoc2024
 version:            0.1.0.0
 license:            NONE
 build-type:         Simple
 
-common stuff
-    ghc-options:        -Wall
-    default-language:   GHC2024
-    default-extensions: RecordWildCards
+executable aoc2024
+    hs-source-dirs:   src
+    main-is:          Main.hs
+    default-language: GHC2024
+    other-modules:
+        Lib, Days,
+        Days.D01, Days.D02, Days.D03, Days.D04, Days.D05,
+        Days.D06, Days.D07, Days.D08, Days.D09, Days.D10,
+        Days.D11, Days.D12, Days.D13, Days.D14, Days.D15,
+        Days.D16, Days.D17, Days.D18, Days.D19, Days.D20,
+        Days.D21, Days.D22, Days.D23, Days.D24, Days.D25
+    ghc-options:
+        -Wall
+    default-extensions:
+        RecordWildCards
     build-depends:
         base ^>=4.20.0.0,
         containers
-
-library
-    import:           stuff
-    hs-source-dirs:   lib
-    exposed-modules:  Lib
-    -- build-depends:
-
-test-suite 2024aoc-test
-    import:           stuff
-    type:             exitcode-stdio-1.0
-    hs-source-dirs:   test
-    main-is:          Main.hs
-    build-depends:
-        2024aoc
-
-executable 2024aoc01a
-    import:           stuff
-    hs-source-dirs:   01a
-    main-is:          Main.hs
-    build-depends:
-        2024aoc
-
-executable 2024aoc01b
-    import:           stuff
-    hs-source-dirs:   01b
-    main-is:          Main.hs
-    build-depends:
-        2024aoc
-
-executable 2024aoc02a
-    import:           stuff
-    hs-source-dirs:   02a
-    main-is:          Main.hs
-    build-depends:
-        2024aoc
-
-executable 2024aoc02b
-    import:           stuff
-    hs-source-dirs:   02b
-    main-is:          Main.hs
-    build-depends:
-        2024aoc
