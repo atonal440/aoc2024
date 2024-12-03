@@ -1,43 +1,49 @@
 module Days.D02 where
 
 import Lib ( Dispatch, dispatchWith )
-import Control.Arrow ( (&&&) )
-import Data.Bool ( bool )
+import Data.List qualified as List
 
 dispatch :: Dispatch
 dispatch = dispatchWith parseInput part1 part2
 --
 
 part1, part2 :: [[Int]] -> Int
-part1 = length . filter safeSystem
-part2 = length . filter problemDampener
+part1 = length . filter checkSafety . differenceList
+part2 = length . filter (any checkSafety) . fmap differenceList . fmap getPerms
 
-safeSystem :: [Int] -> Bool
-safeSystem = fst . foldl safeStep (True, (0, 0))
+checkSafety :: [Int] -> Bool
+checkSafety l 
+  | any ( > 3) (map abs l) = False
+  | any (<= 0) (map abs l) = False
+  | otherwise             = checkConsistency l
 
-type Signum = Int
-unsafe :: (Bool, (Signum, Int))
-unsafe = (False, (0, 0))
-safe :: (Signum, Int) -> (Bool, (Signum, Int))
-safe = (True,)
-safeStep :: (Bool, (Signum, Int)) -> Int -> (Bool, (Signum, Int))
-safeStep (False, _     ) _ = unsafe
-safeStep (_    , (0, 0)) x = safe (0, x)
-safeStep (_    , (s, w)) x = bool unsafe (safe (s', x)) isSafe
+checkConsistency :: [Int] -> Bool
+checkConsistency l = abs (sum signList) == length l
   where
-  (s', d) = (signum &&& abs) $ x - w
-  isSafe = (s == 0 || s == s') && d >= 1 && d <= 3
+    signList = map signum l
 
-problemDampener :: [Int] -> Bool
-problemDampener levels = (not . null) . filter id $ safeSystem <$> alternates
+getDeltas :: [(Int,Int)] -> [Int]
+getDeltas = fmap delta 
   where
-  count = length levels
-  indices = [1 .. count]
-  ixLevels = replicate count $ zip indices levels
-  candidateSet = zip indices ixLevels
-  prune (ix, candidate) = snd <$> filter ((/= ix) . fst) candidate
-  alternates = levels : fmap prune candidateSet
+    delta x = snd x - fst x
+
+entupleList :: [Int] -> [(Int,Int)]
+entupleList [] = []
+entupleList [_] = []
+entupleList (a:b) = (a, head b) : entupleList b
+
+differenceList :: [[Int]] -> [[Int]]
+differenceList = fmap getDeltas . fmap entupleList
+
+getPerms :: [Int] -> [[Int]]
+getPerms l =
+  l : zipWith (<>) (List.inits l) (drop 1 $ List.tails l)
+
 
 --
 parseInput :: String -> [[Int]]
-parseInput = fmap (fmap read . words) . lines
+parseInput = fmap parseNumbers . lines
+
+parseNumbers :: String -> [Int]
+parseNumbers  = fmap read . words
+
