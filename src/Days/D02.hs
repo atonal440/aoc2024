@@ -15,7 +15,7 @@ checkSafety :: [Int] -> Bool
 checkSafety l 
   | any ( > 3) (map abs l) = False
   | any (<= 0) (map abs l) = False
-  | otherwise             = checkConsistency l
+  | otherwise              = checkConsistency l
 
 checkConsistency :: [Int] -> Bool
 checkConsistency l = abs (sum signList) == length l
