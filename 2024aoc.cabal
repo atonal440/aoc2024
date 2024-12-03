@@ -21,4 +21,5 @@ executable aoc2024
         RecordWildCards
     build-depends:
         base ^>=4.20.0.0,
-        containers
+        containers,
+        regex-tdfa
