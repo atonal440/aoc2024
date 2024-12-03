@@ -22,4 +22,5 @@ executable aoc2024
     build-depends:
         base ^>=4.20.0.0,
         containers,
-        regex-tdfa
+        regex-tdfa,
+        text
