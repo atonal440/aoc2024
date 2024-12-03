@@ -1,15 +1,19 @@
 module Main where
 
 import Days ( dispatch )
-import Data.Char ( toLower )
+import Data.Bifunctor ( bimap )
+import Data.Char ( toLower, isAlpha )
+import Data.List qualified as List
 import System.Environment ( getArgs )
 
 main :: IO ()
 main = do
-  dayArg : partArg : inputFilePath : _ <- getArgs
+  dispatchArg : inputFilePath : _ <- getArgs
   rawInput <- readFile inputFilePath
   let
-    day = read @Int dayArg
-    part = toLower <$> partArg
+    (day, part) = parseDispatchArg dispatchArg
     result = dispatch day part rawInput
   putStrLn result
+
+parseDispatchArg :: String -> (Int, String)
+parseDispatchArg = bimap read (fmap toLower) . List.break isAlpha
