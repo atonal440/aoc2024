@@ -22,4 +22,4 @@ cabal.project.local~
 .HTF/
 .ghc.environment.*
 .vscode
-*.txt
+day/
