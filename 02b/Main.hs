@@ -1,7 +1,6 @@
 module Main where
 import System.Environment ( getArgs )
 import Data.List qualified as List
-import Data.Map (deleteAt)
 
 
 main :: IO ()
@@ -15,7 +14,7 @@ main = do
     safeList = fmap (any checkSafety) deltas
     trues = filter id safeList
   print $ length trues
-  
+
 checkSafety :: [Int] -> Bool
 checkSafety l 
   | any ( > 3) (map abs l) = False
