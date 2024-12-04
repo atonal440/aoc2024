@@ -14,3 +14,7 @@ dispatchWith parse process1 process2 part = show . process . parse
 
 both :: Bifunctor f => (a -> b) -> f a a -> f b b
 both f = bimap f f
+
+pass, fail :: a -> Bool
+pass = const True
+fail = const False
