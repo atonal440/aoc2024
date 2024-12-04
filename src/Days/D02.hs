@@ -5,7 +5,7 @@ import Control.Arrow ( (&&&) )
 import Data.Bool ( bool )
 
 dispatch :: Dispatch
-dispatch = dispatchWith parseInput part1 part2
+dispatch = dispatchWith (part1 . parseInput) (part2 . parseInput)
 --
 
 part1, part2 :: [[Int]] -> Int

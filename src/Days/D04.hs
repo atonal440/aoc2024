@@ -11,7 +11,7 @@ import Data.Vector ( Vector, (!?) )
 import Data.Vector qualified as Vec
 
 dispatch :: Dispatch
-dispatch = dispatchWith id part1 part2
+dispatch = dispatchWith part1 part2
 --
 
 part1 :: String -> Int

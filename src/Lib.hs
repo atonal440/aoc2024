@@ -4,8 +4,8 @@ import Data.Bifunctor ( Bifunctor(bimap) )
 
 type Dispatch = String -> String -> String
 
-dispatchWith :: (Show a) => (String -> i) -> (i -> a) -> (i -> a) -> Dispatch
-dispatchWith parse process1 process2 part = show . process . parse
+dispatchWith :: (Show a) => (String -> a) -> (String -> a) -> Dispatch
+dispatchWith process1 process2 part = show . process
   where
   process = case part of
     "a" -> process1

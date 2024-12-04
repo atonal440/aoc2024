@@ -8,7 +8,7 @@ import Data.Map qualified as Map
 import Data.Map (Map)
 
 dispatch :: Dispatch
-dispatch = dispatchWith parseInput part1 part2
+dispatch = dispatchWith (part1 . parseInput) (part2 . parseInput)
 --
 
 part1 :: ([Int], [Int]) -> Int

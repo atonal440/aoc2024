@@ -9,7 +9,7 @@ import Data.List qualified as List
 import Data.Char (isNumber)
 
 dispatch :: Dispatch
-dispatch = dispatchWith id part1 part2
+dispatch = dispatchWith part1 part2
 --
 
 part1, part2 :: String -> Int
