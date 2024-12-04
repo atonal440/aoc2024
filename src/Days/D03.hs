@@ -2,7 +2,7 @@
 {-# LANGUAGE OverloadedStrings #-}
 module Days.D03 where
 
-import Lib
+import Lib ( Dispatch, dispatchWith )
 import Data.Text qualified as Text
 import Text.Regex.TDFA ( (=~), AllTextMatches(getAllTextMatches) )
 import Data.List qualified as List
