@@ -4,8 +4,8 @@ import Lib ( dispatchWith, Dispatch )
 dispatch :: Dispatch
 dispatch = dispatchWith words part1 part2
 --
-part1, part2 :: String -> Int
-part1 = undefined
+part1, part2 :: [String] -> [String]
+part1 = eightWaySearch (0,5) 3  
 part2 = undefined
 
 getFromLists :: (Int,Int) -> [String] -> [Char]
