@@ -45,5 +45,10 @@ parseRules = fmap parseRule where
 parseUpdates :: [String] -> [Update]
 parseUpdates = fmap $ read . ('[':) . (<>"]")
 
+--
 part2 :: String -> Int
-part2 = undefined
+part2 input = sum $ middles validatedUpdates
+  where
+  (rules, updates) = parse1 input
+  invalidUpdates = filter (not . isValidUpdate rules) updates
+  validatedUpdates = (List.sortBy . curry $ applyRules rules) <$> invalidUpdates
