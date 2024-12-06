@@ -4,9 +4,9 @@ import Lib ( dispatchWith, Dispatch )
 dispatch :: Dispatch
 dispatch = dispatchWith words part1 part2
 --
-part1, part2 :: [String] -> [String]
-part1 = eightWaySearch (0,5) 3  
-part2 = undefined
+part1,part2 :: [String] -> Int
+part1 s = length (filter xmasFilter (permsList s))
+part2 s =  length (filter crossMasFilter (permsList' s))
 
 getFromLists :: (Int,Int) -> [String] -> [Char]
 getFromLists (x,y) s
@@ -15,23 +15,33 @@ getFromLists (x,y) s
     | (y > length (s !! 0) - 1) = ""
     | otherwise = s !! x !! y : []
 
-eightWaySearch :: (Int,Int) -> Int -> [String] -> [String]
-eightWaySearch (x,y) 0 s = replicate 9 (getFromLists (x,y) s)
-eightWaySearch (x,y) l s = zipWith (<>) (eightWaySearch(x,y) (l-1) s) (fmap (flip getFromLists s) coords) 
+eightWaySearch :: Int -> [String] -> (Int,Int)  -> [String]
+eightWaySearch 0 s (x,y) = replicate 9 (getFromLists (x,y) s)
+eightWaySearch l s (x,y) = zipWith (<>) (eightWaySearch (l-1) s (x,y)) (fmap (flip getFromLists s) coords) 
     where 
         coords = [(x + l * a, y + l * b) | a <- [-1..1], b <- [-1..1]]
 
+xmasFilter :: String -> Bool
+xmasFilter s = "XMAS" == s
 
--- 
+coordList ::[String] -> [(Int,Int)]
+coordList s = [(x,y)| x <- [0..ubx], y <- [0..uby]] 
+    where
+        ubx = length s - 1
+        uby = length (s !! 0) - 1
 
--- parseInput :: String -> [String]
--- parseInput l = reverseLists l <> diagonalLists l <> verticalLists l <> words l
+permsList :: [String] -> [String]
+permsList s = concat (fmap (eightWaySearch 3 s) (coordList s))
 
--- reverseLists :: String -> [String]
--- reverseLists l = fmap reverse verticalLists l <> diagonalLists l <> lines l
+fourWaySearch :: (Int,Int)-> [String] -> (Int,Int)  -> [String]
+fourWaySearch (l,i) s (x,y) 
+    | l == -i = fmap (flip getFromLists s) coords
+    | otherwise = zipWith (<>) (fourWaySearch (l, i-1) s (x,y)) (fmap (flip getFromLists s) coords) 
+        where 
+            coords = [(x + i * a, y + i * b) | a <- [-1,1], b <- [-1,1]]
 
--- verticalLists :: String -> [String]
--- verticalLists = transpose . words 
+permsList' :: [String] -> [[String]]
+permsList' s = (fourWaySearch (1,1) s) <$> (coordList s)
 
--- diagonalLists :: String -> [String]
--- diagonalLists = undefined 
+crossMasFilter :: [String] -> Bool
+crossMasFilter xs = 2 == (length (filter (== "MAS") xs))
