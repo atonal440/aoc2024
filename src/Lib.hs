@@ -20,5 +20,7 @@ pass, fail :: a -> Bool
 pass = const True
 fail = const False
 
-v2lookup :: Vector (Vector a) -> Int -> Int -> Maybe a
-v2lookup v2 x y = (!? x) =<< (v2 !? y)
+type Field a = Vector (Vector a)
+type Point = (Int, Int)
+xyLookup :: Field a -> Point -> Maybe a
+xyLookup v2 (x,y) = (!? x) =<< (v2 !? y)
