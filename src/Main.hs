@@ -10,10 +10,15 @@ main :: IO ()
 main = do
   dispatchArg : inputFilePath : _ <- getArgs
   rawInput <- readFile inputFilePath
+  putStrLn "---"
+  putStrLn
+    $ "dispatching puzzle " <> dispatchArg
+    <> " with input file " <> inputFilePath
   let
     (day, part) = parseDispatchArg dispatchArg
     result = dispatch day part rawInput
-  putStrLn result
+  putStrLn "---"
+  putStrLn $ "result: " <> result
 
 parseDispatchArg :: String -> (Int, String)
 parseDispatchArg = bimap read (fmap toLower) . List.break isAlpha
