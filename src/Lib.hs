@@ -1,6 +1,7 @@
 module Lib where
 
 import Data.Bifunctor ( Bifunctor(bimap) )
+import Data.Vector ( Vector, (!?) )
 
 type Dispatch = String -> String -> String
 
@@ -18,3 +19,6 @@ both f = bimap f f
 pass, fail :: a -> Bool
 pass = const True
 fail = const False
+
+v2lookup :: Vector (Vector a) -> Int -> Int -> Maybe a
+v2lookup v2 x y = (!? x) =<< (v2 !? y)

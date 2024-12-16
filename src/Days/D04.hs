@@ -2,12 +2,12 @@
 {-# LANGUAGE OverloadedStrings #-}
 module Days.D04 where
 
-import Lib ( Dispatch, dispatchWith, pass )
+import Lib ( Dispatch, dispatchWith, pass, v2lookup )
 import Control.Monad ( void, guard )
 import Data.Text qualified as Text
 import Data.Text ( Text )
 import Data.Map qualified as Map
-import Data.Vector ( Vector, (!?) )
+import Data.Vector ( Vector )
 import Data.Vector qualified as Vec
 
 dispatch :: Dispatch
@@ -58,9 +58,6 @@ findXmas v2 (x, y) = do
   where
   diagCoords = Vec.fromList [(x-1,y-1), (x+1,y-1), (x+1,y+1), ((x-1,y+1))]
   rightCount c = (==2) . length . Vec.filter (==c)
-
-v2lookup :: Vector (Vector a) -> Int -> Int -> Maybe a
-v2lookup v2 x y = (!? x) =<< (v2 !? y)
 
 elemIndices2 :: (Show a, Eq a) => a -> Vector (Vector a) -> Vector (Int, Int)
 elemIndices2 x v2 = do
