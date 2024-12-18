@@ -1,9 +1,8 @@
-{-# LANGUAGE OverloadedRecordDot #-}
 module Days.D06 where
 
 import Lib
   ( Dispatch, dispatchWith
-  , Field, Point, xyLookup
+  , Field, Point, pattern Point, xyLookup
   )
 import Control.Arrow ( (&&&) )
 import Control.Monad ( guard )
@@ -50,8 +49,9 @@ run2 World{..} = do
   y <- [0 .. (Vec.length field) - 1]
   let row = field Vec.! y
   x <- [0 .. (Vec.length row) - 1]
-  guard $ patrol.position /= (x,y)
-  guard $ maybe False not (xyLookup field (x,y))
+  let pos = Point x y
+  guard $ patrol.position /= pos
+  guard $ maybe False not (xyLookup field pos)
   let
     row' = row Vec.// [(x, True)]
     field' = field Vec.// [(y, row')]
@@ -81,14 +81,14 @@ takeStep world@World{..} = do
     else pure $ World field patrol{ position = into }
 
 tryStep :: World -> Maybe (Point, Bool)
-tryStep (World field (Patrol (x,y) facing))
+tryStep (World field (Patrol (Point x y) facing))
   = sequence (stepTo, xyLookup field stepTo)
   where
   stepTo = case facing of
-    North -> (x, pred y)
-    East  -> (succ x, y)
-    South -> (x, succ y)
-    West  -> (pred x, y)
+    North -> Point x (pred y)
+    East  -> Point (succ x) y
+    South -> Point x (succ y)
+    West  -> Point (pred x) y
 
 turnCW :: Facing -> Facing
 turnCW West   = North
@@ -131,7 +131,7 @@ findPatrol inputField = maybe (error "no patrol found") id $ do
     rowIx = fmap (Vec.findIndex isJust) justPatrols
   y <- Vec.findIndex isJust rowIx
   x <- rowIx Vec.! y
-  let pos = (x,y)
+  let pos = Point x y
   Just (IPatrol facing) <- xyLookup justPatrols pos
   pure $ Patrol pos facing
 

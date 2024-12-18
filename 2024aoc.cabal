@@ -19,9 +19,11 @@ executable aoc2024
     default-extensions:
         , RecordWildCards
         , OverloadedRecordDot
+        , PatternSynonyms
     build-depends:
         , base ^>=4.20.0.0
         , containers
+        , linear
         , regex-tdfa
         , text
         , vector

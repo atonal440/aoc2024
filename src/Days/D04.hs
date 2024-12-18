@@ -1,10 +1,10 @@
 {-# OPTIONS_GHC -Wno-x-partial #-}
-{-# LANGUAGE OverloadedStrings, PatternSynonyms #-}
+{-# LANGUAGE OverloadedStrings #-}
 module Days.D04 where
 
 import Lib
   ( Dispatch, dispatchWith, always
-  , Field, Point, xyLookup
+  , Field, Point, pattern Point, xyLookup
   )
 import Control.Monad ( void, guard )
 import Data.Text qualified as Text
@@ -54,19 +54,24 @@ part2 input = let v2 = parse2 input in
   length . Vec.catMaybes $ findXmas v2 <$> elemIndices2 'A' v2
 
 findXmas :: Field Char -> Point -> Maybe ()
-findXmas v2 (x, y) = do
+findXmas v2 (Point x y) = do
   diags <- traverse (xyLookup v2) diagCoords
   guard $ rightCount 'M' diags && rightCount 'S' diags
   guard $ length (Vec.group diags) < 4
   where
-  diagCoords = Vec.fromList [(x-1,y-1), (x+1,y-1), (x+1,y+1), ((x-1,y+1))]
+  diagCoords = Vec.fromList
+    [ Point (x-1) (y-1)
+    , Point (x+1) (y-1)
+    , Point (x+1) (y+1)
+    , Point (x-1) (y+1)
+    ]
   rightCount c = (==2) . length . Vec.filter (==c)
 
 elemIndices2 :: (Show a, Eq a) => a -> Field a -> Vector Point
 elemIndices2 x v2 = do
   (colIx, row) <- Vec.zip (Vec.findIndices always v2) v2
   rowIx <- Vec.elemIndices x row
-  pure (rowIx, colIx)
+  pure $ Point rowIx colIx
 
 parse2 :: String -> Field Char
 parse2 = let vec = Vec.force . Vec.fromList in vec . fmap vec . lines
