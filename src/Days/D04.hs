@@ -1,9 +1,9 @@
 {-# OPTIONS_GHC -Wno-x-partial #-}
-{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE OverloadedStrings, PatternSynonyms #-}
 module Days.D04 where
 
 import Lib
-  ( Dispatch, dispatchWith, pass
+  ( Dispatch, dispatchWith, always
   , Field, Point, xyLookup
   )
 import Control.Monad ( void, guard )
@@ -64,7 +64,7 @@ findXmas v2 (x, y) = do
 
 elemIndices2 :: (Show a, Eq a) => a -> Field a -> Vector Point
 elemIndices2 x v2 = do
-  (colIx, row) <- Vec.zip (Vec.findIndices pass v2) v2
+  (colIx, row) <- Vec.zip (Vec.findIndices always v2) v2
   rowIx <- Vec.elemIndices x row
   pure (rowIx, colIx)
 

@@ -16,9 +16,9 @@ dispatchWith process1 process2 part = show . process
 both :: Bifunctor f => (a -> b) -> f a a -> f b b
 both f = bimap f f
 
-pass, fail :: a -> Bool
-pass = const True
-fail = const False
+always, never :: a -> Bool
+always = const True
+never = const False
 
 type Field a = Vector (Vector a)
 type Point = (Int, Int)
