@@ -1,4 +1,3 @@
-{-# OPTIONS_GHC -Wno-type-defaults #-}
 module Days.D07 where
 
 import Lib ( Dispatch, dispatchWith )
@@ -43,7 +42,8 @@ permute TestSet{..} operators = go operands
 
 -- catDigits :: Int -> Int -> Int
 -- catDigits x y = (magnitude y * x) + y
---   where magnitude = (10 ^) . (1 +) . floor . logBase 10 . fromIntegral
+--   where
+--   magnitude = (10 ^) . ((1::Int) +) . floor . logBase @Double 10 . fromIntegral
 
 -- this is 25% faster?!
 catDigits :: Int -> Int -> Int
