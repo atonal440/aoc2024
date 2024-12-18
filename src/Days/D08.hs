@@ -36,7 +36,7 @@ antinodes2 AntennaField{..} = do
   let
     offset = ant - ant'
     periodic s = takeWhile (bounded bounds) $ List.iterate (s * offset +) ant
-  [ant] <> periodic 1 <> periodic (-1)
+  ant : periodic 1 <> periodic (-1)
 
 parseInput :: String -> [AntennaField]
 parseInput raw = package <$> frequencies
