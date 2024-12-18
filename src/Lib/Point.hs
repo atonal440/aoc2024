@@ -12,4 +12,4 @@ pattern Point x y = V2 x y
 (Point x y) .<= (Point x' y') = x <= x' && y <= y'
 
 bounded :: Point -> Point -> Bool
-bounded bounds point = point .<= bounds && (Point 0 0) .<= point
+bounded bounds point = point .<= bounds && Point 0 0 .<= point
