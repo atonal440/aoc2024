@@ -57,12 +57,8 @@ findXmas field (Point x y) = do
   guard $ rightCount 'M' diags && rightCount 'S' diags
   guard $ length (Vec.group diags) < 4
   where
-  diagCoords = Vec.fromList
-    [ Point (x-1) (y-1)
-    , Point (x+1) (y-1)
-    , Point (x+1) (y+1)
-    , Point (x-1) (y+1)
-    ]
+  diagCoords = let (l,u,r,d) = (x-1,y-1,x+1,y+1) in Vec.fromList
+    [ Point l u, Point r u, Point r d, Point l d ]
   rightCount c = (==2) . length . Vec.filter (==c)
 
 parse2 :: String -> Field Char
