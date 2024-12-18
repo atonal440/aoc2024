@@ -1,9 +1,8 @@
 module Days.D06 where
 
-import Lib
-  ( Dispatch, dispatchWith
-  , Field, Point, pattern Point, xyLookup
-  )
+import Lib ( Dispatch, dispatchWith )
+import Lib.Field ( Field, Point, pattern Point )
+import Lib.Field qualified as Field
 import Control.Arrow ( (&&&) )
 import Control.Monad ( guard )
 import Data.Maybe ( isJust )
@@ -51,7 +50,7 @@ run2 World{..} = do
   x <- [0 .. (Vec.length row) - 1]
   let pos = Point x y
   guard $ patrol.position /= pos
-  guard $ maybe False not (xyLookup field pos)
+  guard $ maybe False not (Field.lookup field pos)
   let
     row' = row Vec.// [(x, True)]
     field' = field Vec.// [(y, row')]
@@ -82,7 +81,7 @@ takeStep world@World{..} = do
 
 tryStep :: World -> Maybe (Point, Bool)
 tryStep (World field (Patrol (Point x y) facing))
-  = sequence (stepTo, xyLookup field stepTo)
+  = sequence (stepTo, Field.lookup field stepTo)
   where
   stepTo = case facing of
     North -> Point x (pred y)
@@ -103,11 +102,7 @@ data InputEntity
   deriving (Show, Eq)
 
 parseInput :: String -> World
-parseInput
-  = makeWorld
-  . Vec.fromList
-  . fmap (Vec.fromList . fmap parseEntity)
-  . lines
+parseInput = makeWorld . Field.parse parseEntity
 
 parseEntity :: Char -> InputEntity
 parseEntity = \case
@@ -132,7 +127,7 @@ findPatrol inputField = maybe (error "no patrol found") id $ do
   y <- Vec.findIndex isJust rowIx
   x <- rowIx Vec.! y
   let pos = Point x y
-  Just (IPatrol facing) <- xyLookup justPatrols pos
+  Just (IPatrol facing) <- Field.lookup justPatrols pos
   pure $ Patrol pos facing
 
 justPatrol :: InputEntity -> Maybe InputEntity

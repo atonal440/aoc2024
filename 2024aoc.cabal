@@ -9,7 +9,7 @@ executable aoc2024
   main-is:          Main.hs
   default-language: GHC2024
   other-modules:
-    Lib, Days,
+    Lib, Lib.Field, Days,
     Days.D01, Days.D02, Days.D03, Days.D04, Days.D05,
     Days.D06, Days.D07, Days.D08, Days.D09, Days.D10,
     Days.D11, Days.D12, Days.D13, Days.D14, Days.D15,

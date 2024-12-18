@@ -2,15 +2,13 @@
 {-# LANGUAGE OverloadedStrings #-}
 module Days.D04 where
 
-import Lib
-  ( Dispatch, dispatchWith, always
-  , Field, Point, pattern Point, xyLookup
-  )
+import Lib ( Dispatch, dispatchWith )
+import Lib.Field ( Field, Point, pattern Point )
+import Lib.Field qualified as Field
 import Control.Monad ( void, guard )
 import Data.Text qualified as Text
 import Data.Text ( Text )
 import Data.Map qualified as Map
-import Data.Vector ( Vector )
 import Data.Vector qualified as Vec
 
 dispatch :: Dispatch
@@ -50,12 +48,12 @@ drops = snd . foldr shrinkinator (0, [])
 
 --
 part2 :: String -> Int
-part2 input = let v2 = parse2 input in
-  length . Vec.catMaybes $ findXmas v2 <$> elemIndices2 'A' v2
+part2 input = let field = parse2 input in
+  length . Vec.catMaybes $ findXmas field <$> Field.elemIndices 'A' field
 
 findXmas :: Field Char -> Point -> Maybe ()
-findXmas v2 (Point x y) = do
-  diags <- traverse (xyLookup v2) diagCoords
+findXmas field (Point x y) = do
+  diags <- traverse (Field.lookup field) diagCoords
   guard $ rightCount 'M' diags && rightCount 'S' diags
   guard $ length (Vec.group diags) < 4
   where
@@ -67,11 +65,5 @@ findXmas v2 (Point x y) = do
     ]
   rightCount c = (==2) . length . Vec.filter (==c)
 
-elemIndices2 :: (Show a, Eq a) => a -> Field a -> Vector Point
-elemIndices2 x v2 = do
-  (colIx, row) <- Vec.zip (Vec.findIndices always v2) v2
-  rowIx <- Vec.elemIndices x row
-  pure $ Point rowIx colIx
-
 parse2 :: String -> Field Char
-parse2 = let vec = Vec.force . Vec.fromList in vec . fmap vec . lines
+parse2 = Field.parse id

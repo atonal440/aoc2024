@@ -2,8 +2,6 @@
 module Lib where
 
 import Data.Bifunctor ( Bifunctor(bimap) )
-import Data.Vector ( Vector, (!?) )
-import Linear ( V2(..) )
 
 type Dispatch = String -> String -> String
 
@@ -21,12 +19,3 @@ both f = bimap f f
 always, never :: a -> Bool
 always = const True
 never = const False
-
-type Field a = Vector (Vector a)
-type Point = V2 Int
-{-# COMPLETE Point #-}
-pattern Point :: Int -> Int -> V2 Int
-pattern Point x y <- V2 x y where
-  Point x y = V2 x y
-xyLookup :: Field a -> Point -> Maybe a
-xyLookup v2 (V2 x y) = (!? x) =<< (v2 !? y)
