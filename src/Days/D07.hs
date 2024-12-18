@@ -22,32 +22,27 @@ data TestSet = TestSet
 type OpSet = [(Int -> Int -> Int)]
 ops1, ops2 :: OpSet
 ops1 = [(+), (*)]
-ops2 = catDigits : ops1
+ops2 = ops1 <> [catDigits]
 
 run :: OpSet -> [TestSet] -> Int
-run ops input = sum $ do
+run operators input = sum $ do
   testSet <- input
-  check <- List.nub $ permute testSet ops
-  guard $ check == testSet.value
-  pure testSet.value
+  List.take 1 $ permute operators testSet
 
-permute :: TestSet -> OpSet -> [Int]
-permute TestSet{..} operators = go operands
+permute :: OpSet -> TestSet -> [Int]
+permute operators TestSet{..} = go operands
   where
   go (x:y:zs) = do
     w <- [op x y | op <- operators]
-    guard $ w <= value  -- hideous special case but holy shit catDigits is slow
+    guard $ w <= value
     go $ w : zs
-  go xs = xs
+  go [x] | x == value = [x]
+  go _ = []
 
--- catDigits :: Int -> Int -> Int
--- catDigits x y = (magnitude y * x) + y
---   where
---   magnitude = (10 ^) . ((1::Int) +) . floor . logBase @Double 10 . fromIntegral
-
--- this is 25% faster?!
 catDigits :: Int -> Int -> Int
-catDigits x y = read $ show x <> show y
+catDigits x y = (magnitude y * x) + y
+  where
+  magnitude = (10 ^) . ((1::Int) +) . floor . logBase @Double 10 . fromIntegral
 
 parseInput :: String -> [TestSet]
 parseInput = fmap parseLine . lines
