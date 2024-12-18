@@ -5,25 +5,25 @@ license:            NONE
 build-type:         Simple
 
 executable aoc2024
-    hs-source-dirs:   src
-    main-is:          Main.hs
-    default-language: GHC2024
-    other-modules:
-        Lib, Days,
-        Days.D01, Days.D02, Days.D03, Days.D04, Days.D05,
-        Days.D06, Days.D07, Days.D08, Days.D09, Days.D10,
-        Days.D11, Days.D12, Days.D13, Days.D14, Days.D15,
-        Days.D16, Days.D17, Days.D18, Days.D19, Days.D20,
-        Days.D21, Days.D22, Days.D23, Days.D24, Days.D25
-    ghc-options: -Wall -O2
-    default-extensions:
-        , RecordWildCards
-        , OverloadedRecordDot
-        , PatternSynonyms
-    build-depends:
-        , base ^>=4.20.0.0
-        , containers
-        , linear
-        , regex-tdfa
-        , text
-        , vector
+  hs-source-dirs:   src
+  main-is:          Main.hs
+  default-language: GHC2024
+  other-modules:
+    Lib, Days,
+    Days.D01, Days.D02, Days.D03, Days.D04, Days.D05,
+    Days.D06, Days.D07, Days.D08, Days.D09, Days.D10,
+    Days.D11, Days.D12, Days.D13, Days.D14, Days.D15,
+    Days.D16, Days.D17, Days.D18, Days.D19, Days.D20,
+    Days.D21, Days.D22, Days.D23, Days.D24, Days.D25
+  ghc-options: -Wall -O2
+  default-extensions:
+    , RecordWildCards
+    , OverloadedRecordDot
+    , PatternSynonyms
+  build-depends:
+    , base ^>=4.20.0.0
+    , containers
+    , linear
+    , regex-tdfa
+    , text
+    , vector
