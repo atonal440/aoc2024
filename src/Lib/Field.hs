@@ -1,15 +1,15 @@
-module Lib.Field where
+module Lib.Field
+( module Lib.Field
+, Point, pattern Point
+) where
 
+import Lib ( both )
+import Lib.Point ( Point, pattern Point, bounded )
+import Control.Arrow ( (&&&) )
 import Data.Vector ( Vector, (!?) )
 import Data.Vector qualified as Vec
-import Linear ( V2(..) )
 
 type Field a = Vector (Vector a)
-type Point = V2 Int
-
-{-# COMPLETE Point #-}
-pattern Point :: Int -> Int -> V2 Int
-pattern Point x y = V2 x y
 
 lookup :: Field a -> Point -> Maybe a
 lookup field (Point x y) = (!? x) =<< (field !? y)
@@ -23,3 +23,9 @@ elemIndices x field = do
 parse :: (Char -> a) -> String -> Field a
 parse parseChar = vec . fmap (vec . fmap parseChar) . lines
   where vec = Vec.force . Vec.fromList
+
+extent :: Field a -> Point
+extent = uncurry Point . both pred . (minimum . fmap Vec.length &&& Vec.length)
+
+within :: Field a -> Point -> Bool
+within field = bounded (extent field)
