@@ -27,3 +27,6 @@ vec = Vec.force . Vec.fromList
 
 unvec :: Vector a -> [a]
 unvec = Vec.toList
+
+countDigits :: Int -> Int
+countDigits = ((1::Int) +) . floor . logBase @Double 10 . fromIntegral

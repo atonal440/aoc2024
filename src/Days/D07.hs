@@ -1,6 +1,6 @@
 module Days.D07 where
 
-import Lib ( Dispatch, dispatchWith )
+import Lib ( Dispatch, dispatchWith, countDigits )
 import Data.Bifunctor ( bimap )
 import Control.Monad ( guard )
 import Data.List qualified as List
@@ -40,9 +40,7 @@ permute operators TestSet{..} = go operands
   go _ = []
 
 catDigits :: Int -> Int -> Int
-catDigits x y = (magnitude y * x) + y
-  where
-  magnitude = (10 ^) . ((1::Int) +) . floor . logBase @Double 10 . fromIntegral
+catDigits x y = (10 ^ (countDigits y) * x) + y
 
 parseInput :: String -> [TestSet]
 parseInput = fmap parseLine . lines
