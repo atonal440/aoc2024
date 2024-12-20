@@ -1,9 +1,7 @@
 {-# OPTIONS_GHC -Wno-x-partial #-}
 module Days.D10 where
 
-import Lib
-  ( Dispatch, dispatchWith
-  , unvec )
+import Lib ( Dispatch, dispatchWith, unvec )
 import Lib.Field (Field, Point, pattern Point)
 import Lib.Field qualified as Field
 import Control.Arrow ( (&&&) )
@@ -20,7 +18,7 @@ part1 :: String -> Int
 part1 = length . uniqueEndpointTrails . allTrails . parseInput
 
 part2 :: String -> Int
-part2 = undefined
+part2 = length . allTrails . parseInput
 
 uniqueEndpointTrails :: [[Point]] -> [(Point, Point)]
 uniqueEndpointTrails = List.nub . fmap (head &&& last)
