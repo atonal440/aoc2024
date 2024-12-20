@@ -2,6 +2,8 @@
 module Lib where
 
 import Data.Bifunctor ( Bifunctor(bimap) )
+import Data.Vector ( Vector )
+import Data.Vector qualified as Vec
 
 type Dispatch = String -> String -> String
 
@@ -19,3 +21,9 @@ both f = bimap f f
 always, never :: a -> Bool
 always = const True
 never = const False
+
+vec :: [a] -> Vector a
+vec = Vec.force . Vec.fromList
+
+unvec :: Vector a -> [a]
+unvec = Vec.toList

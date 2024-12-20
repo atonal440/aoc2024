@@ -3,7 +3,7 @@ module Lib.Field
 , Point, pattern Point
 ) where
 
-import Lib ( both )
+import Lib ( both, vec )
 import Lib.Point ( Point, pattern Point, bounded )
 import Control.Arrow ( (&&&) )
 import Data.Vector ( Vector, (!?) )
@@ -22,7 +22,6 @@ elemIndices x field = do
 
 parse :: (Char -> a) -> String -> Field a
 parse parseChar = vec . fmap (vec . fmap parseChar) . lines
-  where vec = Vec.force . Vec.fromList
 
 extent :: Field a -> Point
 extent = uncurry Point . both pred . (minimum . fmap Vec.length &&& Vec.length)
