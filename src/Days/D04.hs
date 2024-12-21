@@ -3,7 +3,7 @@
 module Days.D04 where
 
 import Lib ( Dispatch, dispatchWith )
-import Lib.Field ( Field, Point, pattern Point )
+import Lib.Field ( Field, Point, pattern Point, px, py )
 import Lib.Field qualified as Field
 import Control.Monad ( void, guard )
 import Data.Text qualified as Text
@@ -52,12 +52,12 @@ part2 input = let field = parse2 input in
   length . Vec.catMaybes $ findXmas field <$> Field.elemIndices 'A' field
 
 findXmas :: Field Char -> Point -> Maybe ()
-findXmas field (Point x y) = do
-  diags <- traverse (Field.lookup field) diagCoords
+findXmas field Point{..} = do
+  diags <- traverse (flip Field.lookup field) diagCoords
   guard $ rightCount 'M' diags && rightCount 'S' diags
   guard $ length (Vec.group diags) < 4
   where
-  diagCoords = let (l,u,r,d) = (x-1,y-1,x+1,y+1) in Vec.fromList
+  diagCoords = let (l,u,r,d) = (px-1,py-1,px+1,py+1) in Vec.fromList
     [ Point l u, Point r u, Point r d, Point l d ]
   rightCount c = (==2) . length . Vec.filter (==c)
 

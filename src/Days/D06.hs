@@ -1,7 +1,7 @@
 module Days.D06 where
 
 import Lib ( Dispatch, dispatchWith )
-import Lib.Field ( Field, Point, pattern Point )
+import Lib.Field ( Field, Point, pattern Point, px, py )
 import Lib.Field qualified as Field
 import Control.Arrow ( (&&&) )
 import Control.Monad ( guard )
@@ -45,15 +45,10 @@ run initial = go initial [initial.patrol.position]
 
 run2 :: World -> [()]
 run2 World{..} = do
-  y <- [0 .. (Vec.length field) - 1]
-  let row = field Vec.! y
-  x <- [0 .. (Vec.length row) - 1]
-  let pos = Point x y
+  pos <- Field.indices field
   guard $ patrol.position /= pos
-  guard $ maybe False not (Field.lookup field pos)
-  let
-    row' = row Vec.// [(x, True)]
-    field' = field Vec.// [(y, row')]
+  guard $ maybe False not (Field.lookup pos field)
+  let field' = Field.update pos True field
   guard $ runLoopDetect (World field' patrol)
   pure ()
 
@@ -80,14 +75,14 @@ takeStep world@World{..} = do
     else pure $ World field patrol{ position = into }
 
 tryStep :: World -> Maybe (Point, Bool)
-tryStep (World field (Patrol (Point x y) facing))
-  = sequence (stepTo, Field.lookup field stepTo)
+tryStep (World field (Patrol Point{..} facing))
+  = sequence (stepTo, Field.lookup stepTo field)
   where
   stepTo = case facing of
-    North -> Point x (pred y)
-    East  -> Point (succ x) y
-    South -> Point x (succ y)
-    West  -> Point (pred x) y
+    North -> Point px (pred py)
+    East  -> Point (succ px) py
+    South -> Point px (succ py)
+    West  -> Point (pred px) py
 
 turnCW :: Facing -> Facing
 turnCW West   = North
@@ -127,7 +122,7 @@ findPatrol inputField = maybe (error "no patrol found") id $ do
   y <- Vec.findIndex isJust rowIx
   x <- rowIx Vec.! y
   let pos = Point x y
-  Just (IPatrol facing) <- Field.lookup justPatrols pos
+  Just (IPatrol facing) <- Field.lookup pos justPatrols
   pure $ Patrol pos facing
 
 justPatrol :: InputEntity -> Maybe InputEntity
