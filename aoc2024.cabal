@@ -15,7 +15,7 @@ executable aoc2024
     Days.D11, Days.D12, Days.D13, Days.D14, Days.D15,
     Days.D16, Days.D17, Days.D18, Days.D19, Days.D20,
     Days.D21, Days.D22, Days.D23, Days.D24, Days.D25
-  ghc-options: -Wall -O2
+  ghc-options: -Wall
   default-extensions:
     , RecordWildCards
     , OverloadedRecordDot
